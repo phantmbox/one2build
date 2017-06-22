@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6efe02a3-09f2-4044-be0d-d5009a5e7b28" name="one2build" url="http://ictservicenoord.nl/one2build/one2build">
+        <fileTransfer host="ictservicenoord.nl" port="21" rootFolder="/httpdocs/one2build/one2build" password="df98df99df93df98df9cdf92df9ddfe8dfcedf9ddf9a" username="ictservicenoord">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
