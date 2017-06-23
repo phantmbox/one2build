@@ -36,7 +36,7 @@ class fileLoader implements fileLoaderInterface
 
         } catch (\Exception $e) {
 
-            throw new \Exception ( "failed to load Xml: " . __METHOD__ );
+            throw new \Exception ( "failed to load Xml: " . __METHOD__ . PHP_EOL );
 
         }
 

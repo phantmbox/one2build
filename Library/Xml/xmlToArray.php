@@ -42,7 +42,7 @@ class xmlToArray implements xmlToArrayInterface
                 $tempXml = simplexml_load_string($this->_xmlData , "SimpleXMLElement" , LIBXML_NOCDATA);
 
                 if (!$tempXml) {
-                    throw new \UnexpectedValueException ("error creating xml data: " . __METHOD__);
+                    throw new \UnexpectedValueException ("error creating xml data: " . __METHOD__ . PHP_EOL);
                 }
 
                 $xmlToArray = json_decode ( json_encode($tempXml) );
@@ -56,7 +56,7 @@ class xmlToArray implements xmlToArrayInterface
             }
 
             return false;
-            
+
         }  else {
 
             return false;

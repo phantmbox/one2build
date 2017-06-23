@@ -22,8 +22,6 @@ class xmlToArrayStructure implements xmlToArrayStructureInterface
     public function __construct($xml = null)
     {
         $this->_xmlData = $xml;
-
-        echo $this->_xmlData;
     }
 
     /**
@@ -39,7 +37,7 @@ class xmlToArrayStructure implements xmlToArrayStructureInterface
                 xml_parser_set_option($tempXml, XML_OPTION_SKIP_WHITE, 1);
                 xml_parse_into_struct($tempXml, $this->_xmlData, $structure, $index);
                 xml_parser_free($tempXml);
-                print_r($structure);
+
                 return $structure;
 
             } catch (\Exception $e) {

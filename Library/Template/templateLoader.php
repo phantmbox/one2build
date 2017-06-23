@@ -22,7 +22,8 @@ use one2build\Library\Xml\xmlToArrayStructure as xmlToArrayStructure;
  */
 interface templateLoaderInterface
 {
-    public function __construct( $file );
+    public function __construct(  );
+    public function setTemplateUrl( $file );
     public function loadTemplateFile();
 
 }
@@ -37,13 +38,16 @@ class templateLoader implements templateLoaderInterface
 
     /**
      * templateLoader constructor.
+     */
+    public function __construct( ){ }
+
+    /**
      * @param $file
      */
-    public function __construct( $file )
+    public function setTemplateUrl( $file )
     {
         $this->_templateFile = $file;
     }
-
     /**
      * @return null
      */
@@ -52,14 +56,14 @@ class templateLoader implements templateLoaderInterface
         try {
 
             // initiate xmlFileLoader and load default setting file
-            $settingsFileLoader = new xmlFileLoader(ROOT . $this->_templateFile);
+            $templateFileLoader = new xmlFileLoader(ROOT . $this->_templateFile);
 
-            if ( $settingFileLoaderResult = $settingsFileLoader->loadResult() ) {
+            if ( $templateFileLoaderResult = $templateFileLoader->loadResult() ) {
 
                 try {
 
                     // initiate xmlToArrayStructure
-                    $xmlToArray = new xmlToArrayStructure($settingFileLoaderResult);
+                    $xmlToArray = new xmlToArrayStructure($templateFileLoaderResult);
                     // get converted xml and return array structure (open/close/complete tags)
                     if ( $convertedXml = $xmlToArray->convert() ) return $convertedXml;
                     // error, no array was created
@@ -70,9 +74,11 @@ class templateLoader implements templateLoaderInterface
                     echo $e->getMessage();
                     return null;
                 }
+            } else {
+                throw new \Exception("No template file loaded. " . __METHOD__ . PHP_EOL);
             }
 
-            return null;
+
 
         } catch (\Exception $e) {
 

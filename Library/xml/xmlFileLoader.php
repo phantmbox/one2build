@@ -53,12 +53,16 @@ class xmlFileLoader implements xmlFileLoaderInterface
             $loadXml = new fileLoader();
             // set file to load
             $loadXml->setFile($this->_xmlFileToLoad);
+
             // return loaded xml file
-            return $loadXml->loadFile();
+            $xmlResult = $loadXml->loadFile();
+            if ( !$xmlResult ) throw new \Exception ("error loading data " . __METHOD__ . PHP_EOL);
+
+            return $xmlResult;
 
         } catch (\Exception $e) {
 
-            throw new \Exception ("error loading data " . __METHOD__);
+            throw new \Exception ("error loading data " . __METHOD__ . PHP_EOL);
 
         }
 

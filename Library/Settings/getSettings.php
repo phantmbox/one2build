@@ -49,18 +49,18 @@ class getSettings implements getSettingsInterface
                     // initiate xmlToArray
                     $xmlToArray = new xmlToArray($settingFileLoaderResult);
                     // get converted xml and return array
-                    if ( $convertedXml = $xmlToArray->convert() ) return $convertedXml;
-                    // error, no array was created
-                    return null;
+                    if ( !$convertedXml = $xmlToArray->convert() ) throw new \Exception("error | " . __METHOD__ . PHP_EOL);
+
+                    return $convertedXml;
                             
                 } catch (\Exception $e) {
 
                     echo $e->getMessage();
-                    return null;
+
                 }
             }
 
-            return false;
+            throw new \Exception("error | " . __METHOD__ . PHP_EOL);
 
         } catch (\Exception $e) {
 

@@ -2,8 +2,10 @@
 namespace one2build;
 
 require_once(ROOT . "/Library/Settings/getSettings.php");
+require_once(ROOT . "/Library/Template/templateLoader.php");
 
 use one2build\Library\Settings\getSettings as getSettings;
+use one2build\Library\Template\templateLoader;
 
 
 /**
@@ -29,7 +31,9 @@ class one2build implements one2buildInterface
 {
     private $_settings = null;
     private $_template = null;
-    
+    private $_currentPage = "home";
+    private $_headerOutput = "";
+    private $_bodyOutpur = "";
 
     /**
      * one2build constructor.
@@ -44,23 +48,23 @@ class one2build implements one2buildInterface
      */
     public function buildPage()
     {
-        /**
-         * lets get some settings
-         */
+
         try {
 
+            // load settings file ( /settings/settings.one )
             $this->_settings = $this->_getSettings();
 
-            // check for all necessary settings otherwise throw exception
+            // check for all necessary settings information
+            // settings file needs ( projectname, theme tag );
             $this->_checkSettingsInformation();
-            
-            // loading currentPage template
-            $this->_template = $this->_loadTemplate();
 
+            // loading currentPage template (/themes/<theme>/<page>.one)
+            $this->_template = $this->_loadTemplate();
+           
 
         } catch (\Exception $e) {
 
-            echo $e->getMessage();
+            echo $e->getMessage() . "Terminated!".PHP_EOL;
 
         }
         
@@ -74,10 +78,10 @@ class one2build implements one2buildInterface
     private function _getSettings()
     {
         try {
-            echo __METHOD__ .PHP_EOL;
+
             $settings =  new getSettings();
-            $result = $settings->loadSettingsFile();
-            print_r($result);
+            if ( !$result = $settings->loadSettingsFile() ) throw new \Exception ("error | " . __METHOD__ . PHP_EOL);
+
             return $result;
 
         } catch (\Exception $e) {
@@ -88,22 +92,43 @@ class one2build implements one2buildInterface
         return null;
 
     }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     private function _checkSettingsInformation()
     {
-        echo __METHOD__ .PHP_EOL;
-
-
         $settingsItem = $this->_settings;
 
-        if ( !property_exists( $settingsItem , 'projectname' ) || !isset( $settingsItem->projectname ) ) throw new \Exception ("projectname missing is settings file");
-        if ( !property_exists( $settingsItem , 'theme' ) || !isset( $settingsItem->theme ) ) throw new \Exception ("theme missing in settings file");
+        if ( !property_exists( $settingsItem , 'projectname' ) || !isset( $settingsItem->projectname ) ) throw new \Exception ("projectname missing is settings file " . PHP_EOL);
+        if ( !property_exists( $settingsItem , 'theme' ) || !isset( $settingsItem->theme ) ) throw new \Exception ("theme missing in settings file " . PHP_EOL);
 
 
         return true;
     }
+
+    /**
+     * @return null
+     */
     private function _loadTemplate()
     {
-        
+        try {
+
+            $currentTheme = $this->_settings;
+            $templateLoader =  new templateLoader();
+            $templateLoader->setTemplateUrl( "/themes/" . trim($currentTheme->theme) . "/layout/" . $this->_currentPage . ".one" );
+
+            if ( !$result = $templateLoader->loadTemplateFile() ) throw new \Exception("Can load template !" . __METHOD__ . PHP_EOL);
+
+            return $result;
+
+        } catch (\Exception $e) {
+
+            echo $e->getMessage();
+
+        }
+        return null;
     }
 }
 
