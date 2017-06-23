@@ -17,7 +17,7 @@ interface xmlToArrayInterface
  */
 class xmlToArray implements xmlToArrayInterface
 {
-    private $_xmlData;
+    protected $_xmlData;
 
     /**
      * xmlToArray constructor.

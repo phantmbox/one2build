@@ -2,10 +2,14 @@
 namespace one2build;
 
 require_once(ROOT . "/Library/Settings/getSettings.php");
+require_once(ROOT . "/Library/Settings/checkSettings.php");
 require_once(ROOT . "/Library/Template/templateLoader.php");
+require_once(ROOT . "/Library/Template/templateParser.php");
 
 use one2build\Library\Settings\getSettings as getSettings;
-use one2build\Library\Template\templateLoader;
+use one2build\Library\Settings\checkSettings as checkSettings;
+use one2build\Library\Template\templateLoader as templateLoader;
+use one2build\Library\Template\templateParser as templateParser;
 
 
 /**
@@ -29,11 +33,11 @@ interface one2buildInterface
  */
 class one2build implements one2buildInterface
 {
-    private $_settings = null;
-    private $_template = null;
-    private $_currentPage = "home";
-    private $_headerOutput = "";
-    private $_bodyOutpur = "";
+    protected $_settings = null;
+    protected $_template = null;
+    protected $_currentPage = "home";
+    protected $_headerOutput = "";
+    protected $_bodyOutput = "";
 
     /**
      * one2build constructor.
@@ -56,11 +60,16 @@ class one2build implements one2buildInterface
 
             // check for all necessary settings information
             // settings file needs ( projectname, theme tag );
-            $this->_checkSettingsInformation();
+            $checkSettings = new checkSettings( $this->_settings );
+            $checkSettings->checkSettings();
 
             // loading currentPage template (/themes/<theme>/<page>.one)
             $this->_template = $this->_loadTemplate();
-           
+            
+            // parsing the template to html
+            $parser = new templateParser( $this->_template );
+            
+            echo "OK";
 
         } catch (\Exception $e) {
 
@@ -93,20 +102,6 @@ class one2build implements one2buildInterface
 
     }
 
-    /**
-     * @return bool
-     * @throws \Exception
-     */
-    private function _checkSettingsInformation()
-    {
-        $settingsItem = $this->_settings;
-
-        if ( !property_exists( $settingsItem , 'projectname' ) || !isset( $settingsItem->projectname ) ) throw new \Exception ("projectname missing is settings file " . PHP_EOL);
-        if ( !property_exists( $settingsItem , 'theme' ) || !isset( $settingsItem->theme ) ) throw new \Exception ("theme missing in settings file " . PHP_EOL);
-
-
-        return true;
-    }
 
     /**
      * @return null

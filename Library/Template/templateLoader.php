@@ -34,7 +34,7 @@ interface templateLoaderInterface
  */
 class templateLoader implements templateLoaderInterface
 {
-    private $_templateFile = null;
+    protected $_templateFile = null;
 
     /**
      * templateLoader constructor.
