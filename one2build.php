@@ -1,7 +1,7 @@
 <?php
 namespace one2build;
 
-require_once(ROOT . "/Library/exception.php");
+//require_once(ROOT . "/Library/exception.php");
 require_once(ROOT . "/Library/Settings/getSettings.php");
 
 use one2build\Library\Settings\getSettings as getSettings;
@@ -79,7 +79,7 @@ class one2build implements one2buildInterface
 
         }
 
-        
+
     }
 }
 
