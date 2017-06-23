@@ -1,7 +1,10 @@
 <?php
 namespace one2build\Library\Xml;
+
+require_once (ROOT . "/Library/Loader/fileLoader.php");
+
 use one2build\Library\Loader\fileLoader;
-//use one2build\one2build\Library\xmlToArrayStructure;
+
 
 /**
  * Created by PhpStorm.
@@ -15,7 +18,7 @@ use one2build\Library\Loader\fileLoader;
 interface xmlFileLoaderInterface
 {
     public function __construct($xmlFile);
-    public function loader();
+    public function loadResult();
 }
 /**
  * Class xmlFileLoader
@@ -25,26 +28,40 @@ class xmlFileLoader implements xmlFileLoaderInterface
 
 
     private $_xmlFileToLoad;
-    private $_receivedXmlData = "";
     
     /**
      * xmlFileLoader constructor.
      * @param string $xmlFile
      */
-    public function __construct($xmlFile = "")
+    public function __construct($xmlFile = null)
     {
-        //$this->_xmlFileToLoad = $xmlFile;
+
+        $this->_xmlFileToLoad = $xmlFile;
+        
     }
 
     /**
      * @return string Xml file
      * @throws \Exception xmlLoad
      */
-    public function loader()
+    public function loadResult()
     {
-            //$loadXml = new fileLoader();
-           // $loadXml->setFile( $this->_xmlFileToLoad );
-            //return $loadXml->loadFile();
 
+        try {
+
+            // initiate fileLoader
+            $loadXml = new fileLoader();
+            // set file to load
+            $loadXml->setFile($this->_xmlFileToLoad);
+            // return loaded xml file
+            return $loadXml->loadFile();
+
+        } catch (\Exception $e) {
+
+            throw new \Exception ("error loading data " . __METHOD__);
+
+        }
+
+        
     }
 }
