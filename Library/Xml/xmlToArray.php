@@ -45,16 +45,18 @@ class xmlToArray implements xmlToArrayInterface
                     throw new \UnexpectedValueException ("error creating xml data: " . __METHOD__);
                 }
 
-                $xmlToArray = json_decode ( json_encode($tempXml) , true );
+                $xmlToArray = json_decode ( json_encode($tempXml) );
 
                 return $xmlToArray;
 
             } catch (\Exception $e) {
 
-                throw new \Exception ("error creating xml data " . $e->getMessage() . " " .  __METHOD__);
+                echo $e->getMessage();
 
             }
 
+            return false;
+            
         }  else {
 
             return false;

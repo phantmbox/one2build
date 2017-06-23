@@ -1,0 +1,25 @@
+body,html { margin:0 }
+
+.staticHeaderBlock {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background:#fff;
+}
+
+@media screen and (max-width: 479px ) {
+    .staticHeaderBlock { height: 80px }
+}
+@media screen and (min-width: 480px ) {
+    .staticHeaderBlock { height: 100px }
+}
+@media screen and (min-width: 680px ) {
+    .staticHeaderBlock { height: 110px }
+}
+@media screen and (min-width: 960px ) {
+    .staticHeaderBlock { height: 120px }
+}
+@media screen and (min-width: 1200px ) {
+    .staticHeaderBlock { height: 130px }
+}

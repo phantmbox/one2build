@@ -2,9 +2,13 @@
     <projectname>
         Freecer
     </projectname>
+    <theme>
+        default
+    </theme>
     <defaultHeaderInclude>
         <js>https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js</js>
         <js>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js></js>
         <css>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css</css>
+        <css>/themes/default/layout/css/default.css</css>
     </defaultHeaderInclude>
 </settings>

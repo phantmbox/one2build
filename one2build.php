@@ -5,6 +5,7 @@ require_once(ROOT . "/Library/Settings/getSettings.php");
 
 use one2build\Library\Settings\getSettings as getSettings;
 
+
 /**
  * one2build framework
  */
@@ -26,7 +27,9 @@ interface one2buildInterface
  */
 class one2build implements one2buildInterface
 {
-    protected $_settings = null;
+    private $_settings = null;
+    private $_template = null;
+    
 
     /**
      * one2build constructor.
@@ -47,13 +50,17 @@ class one2build implements one2buildInterface
         try {
 
             $this->_settings = $this->_getSettings();
-            if ( $this->_settings !== null ) {
-                print_r ( $this->_settings );
-            }
+
+            // check for all necessary settings otherwise throw exception
+            $this->_checkSettingsInformation();
+            
+            // loading currentPage template
+            $this->_template = $this->_loadTemplate();
+
 
         } catch (\Exception $e) {
 
-            throw new \Exception ("Error: loading settings file");
+            echo $e->getMessage();
 
         }
         
@@ -67,18 +74,36 @@ class one2build implements one2buildInterface
     private function _getSettings()
     {
         try {
-
+            echo __METHOD__ .PHP_EOL;
             $settings =  new getSettings();
             $result = $settings->loadSettingsFile();
+            print_r($result);
             return $result;
 
         } catch (\Exception $e) {
 
-            throw new \Exception ( "cant load settings file " . __METHOD__ );
+            echo $e->getMessage();
 
         }
+        return null;
+
+    }
+    private function _checkSettingsInformation()
+    {
+        echo __METHOD__ .PHP_EOL;
 
 
+        $settingsItem = $this->_settings;
+
+        if ( !property_exists( $settingsItem , 'projectname' ) || !isset( $settingsItem->projectname ) ) throw new \Exception ("projectname missing is settings file");
+        if ( !property_exists( $settingsItem , 'theme' ) || !isset( $settingsItem->theme ) ) throw new \Exception ("theme missing in settings file");
+
+
+        return true;
+    }
+    private function _loadTemplate()
+    {
+        
     }
 }
 

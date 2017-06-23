@@ -54,18 +54,18 @@ class getSettings implements getSettingsInterface
                     return null;
                             
                 } catch (\Exception $e) {
-                    
-                    throw new \Exception( "error " . __METHOD__ );
-                    
+
+                    echo $e->getMessage();
+                    return null;
                 }
             }
-            
+
             return false;
 
         } catch (\Exception $e) {
-            
-            throw new \Exception ("cant initiate xmlFileLoader " . __METHOD__ );
-            
+
+            echo $e->getMessage();
+            return null;
         }
         
     }
