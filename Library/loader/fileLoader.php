@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: phantmbox
- * Date: 22-6-2017
- * Time: 15:15
- */
 namespace one2build\Library\Loader;
 
 /**
@@ -14,6 +8,7 @@ interface fileLoaderInterface
 {
     public function __construct();
     public function setFile( $fileToLoad = null );
+    public function loadFile();
 }
 
 /**
@@ -24,7 +19,9 @@ class fileLoader implements fileLoaderInterface
 {
     protected $fileToLoad;
     
-    public function __construct() { /**/ }
+    public function __construct() {
+
+    }
 
     public function setFile( $fileToLoad = null )
     {
@@ -34,9 +31,15 @@ class fileLoader implements fileLoaderInterface
     {
         try
         {
-            if ( $loadedFile = file_get_contents( ROOT . $this->fileToLoad ) )return $loadedFile;
-        } catch (Exception $e) {
-            throw new Exception ( "failed to load Xml: " . $e );
+            // load file and return content
+            if ( $loadedFile = file_get_contents( $this->fileToLoad , FILE_USE_INCLUDE_PATH ) ) return $loadedFile;
+
+        } catch (\Exception $e) {
+
+            throw new \Exception ( "failed to load Xml: " . __METHOD__ );
+
         }
+
+        return false;
     }
 }

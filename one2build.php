@@ -1,9 +1,10 @@
 <?php
 namespace one2build;
 
-// xmlFileLoader for loading Xml (.one) files
-use one2build\Library\xmlFileLoader;
-use one2build\Library\getSettings as getSettings;
+require_once(ROOT . "/Library/exception.php");
+require_once(ROOT . "/Library/Settings/getSettings.php");
+
+use one2build\Library\Settings\getSettings as getSettings;
 
 /**
  * one2build framework
@@ -11,6 +12,7 @@ use one2build\Library\getSettings as getSettings;
 
 /**
  * Interface one2buildInterface
+ * @package one2build
  */
 interface one2buildInterface
 {
@@ -20,31 +22,64 @@ interface one2buildInterface
 
 /**
  * Class one2build
+ * @package one2build
+ * @var array $_settings contains array of settings file
  */
 class one2build implements one2buildInterface
 {
+    protected $_settings = null;
+
+    /**
+     * one2build constructor.
+     */
     public function __construct()
     {
-       echo  __METHOD__ . PHP_EOL;
+
     }
 
     /**
-     * @throws \Exception
+     *
      */
     public function buildPage()
     {
-        echo  __METHOD__ . PHP_EOL;
-        
         /**
          * lets get some settings
          */
-        echo "step 1";
         try {
-            $settings = new Library\getSettings();
+
+            $this->_settings = $this->_getSettings();
+            if ( $this->_settings !== null ) {
+                print_r ( $this->_settings );
+            }
+
         } catch (\Exception $e) {
-            echo $e->getMessage();
+
+            throw new \Exception ("Error: loading settings file");
+
         }
-        echo "step 1 - complete";
+        
+    }
+
+    /**
+     * @return bool|false if no settings file cant be loaded and converted in array
+     * @return array $result contains array of settings file
+     * @throws \Exception if settings file cant be loaded and converted into array
+     */
+    private function _getSettings()
+    {
+        try {
+
+            $settings =  new getSettings();
+            $result = $settings->loadSettingsFile();
+            return $result;
+
+        } catch (\Exception $e) {
+
+            throw new \Exception ( "cant load settings file " . __METHOD__ );
+
+        }
+
+        
     }
 }
 
