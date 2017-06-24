@@ -36,7 +36,7 @@ class templateParserHeader implements templateParserHeaderInterface
         if ( property_exists( $settings , 'meta'  ) ) $this->_headerOutput .= $this->_addMetaTags( $settings->meta );
 
         // add settings -> defaultHeaderInclude
-        if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
+        if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_headerOutput .= $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
 
 
 
@@ -58,7 +58,7 @@ class templateParserHeader implements templateParserHeaderInterface
     private function _addMetaTags( $metaTags = [] )
     {
         $addType = "<!-- meta includes -->" . PHP_EOL;
-        
+
         foreach($metaTags as $metaType=>$metaValue) {
            $addType .= "<meta name='" . $metaType . " content='" . $metaValue . "'>" . PHP_EOL;
         }
@@ -69,13 +69,15 @@ class templateParserHeader implements templateParserHeaderInterface
 
     /**
      * @param $settingsHeaders
+     * @return string $addType containing head block
      */
     private function _addHeadersFromSettings($settingsHeaders = [])
     {
+        $addType = "<!-- header includes -->\n<head>" . PHP_EOL;
 
         foreach($settingsHeaders as $includeType=>$includeItems)
         {
-            $addType = "<!-- header includes -->\n<head>" . PHP_EOL;
+
             switch ($includeType)
             {
                 // include javascript file
@@ -86,13 +88,14 @@ class templateParserHeader implements templateParserHeaderInterface
                 // include stylesheet file
                 case "css":
                     // include all css items
-                    foreach($includeItems as $item) $addType = "<link href='" . $item . "' rel='stylesheet'/>" .PHP_EOL;
+                    foreach($includeItems as $item) $addType .= "<link href='" . $item . "' rel='stylesheet'/>" .PHP_EOL;
                     break;
             }
-            $addType .= "</head>" .PHP_EOL;
-            // add items to the headerOutput var
-            $this->_headerOutput .= $addType;
+
         }
+        $addType .= "</head>" .PHP_EOL;
+        
+        return $addType;
 
     }
 
