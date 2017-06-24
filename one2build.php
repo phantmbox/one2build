@@ -77,14 +77,15 @@ class one2build implements one2buildInterface
             $templateLoader->setTemplateUrl( "/themes/" . trim($currentTheme->theme) . "/layout/" . $this->_currentPage . ".one" );
             $this->_template = $templateLoader->loadTemplateFile();
 
-            // parsing the template to html
-            $parser = new templateParser( $this->_template );
-            
-            echo "OK" . PHP_EOL; // echo OK is there are no errors
+            // parsing the template array to html
+            $parser = new templateParser( $this->_settings , $this->_template );
+            $parser->buildHtmlOutput();
+
+            echo "<!-- finished successfully -->" . PHP_EOL; // echo remark if there are no errors
 
         } catch (\Exception $e) {
 
-            echo $e->getMessage() . "Terminated!" . PHP_EOL; // echo terminated if there is one or more errors
+            echo $e->getMessage() . "<!-- Terminated! -->" . PHP_EOL; // echo terminated if there is one or more errors
 
         }
         

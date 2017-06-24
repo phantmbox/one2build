@@ -14,19 +14,31 @@ interface fileLoaderInterface
 /**
  * Class fileLoader
  * @package one2build\Library
+ * @var string $fileToLoad contains filename
  */
 class fileLoader implements fileLoaderInterface
 {
     protected $fileToLoad;
-    
+
+    /**
+     * fileLoader constructor.
+     */
     public function __construct() {
 
     }
 
+    /**
+     * @param null $fileToLoad
+     */
     public function setFile( $fileToLoad = null )
     {
         $this->fileToLoad = $fileToLoad;
     }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
     public function loadFile()
     {
         try
