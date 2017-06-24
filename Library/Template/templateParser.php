@@ -46,9 +46,9 @@ class templateParser
     {
         try
         {
-            $header = new headerParser();
+            $header = new headerParser( $this->_settings );
             echo $header->returnHeaderHtml();
-            $body = new bodyParser();
+            $body = new bodyParser( $this->_template );
             echo $body->returnBodyHtml();
 
         } catch (\Exception $e) {

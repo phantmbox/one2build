@@ -9,7 +9,7 @@ namespace one2build\Library\Template;
  */
 interface templateParserHeaderInterface
 {
-    public function __construct();
+    public function __construct( $settings );
     public function returnHeaderHtml();
 }
 
@@ -27,10 +27,15 @@ class templateParserHeader implements templateParserHeaderInterface
     /**
      * templateParserHeader constructor.
      */
-    public function __construct() {
+    public function __construct( $settings = [] ) {
 
+        // add first part of the header
         $this->_addFirstPart();
 
+        // add settings -> defaultHeaderInclude
+        if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
+
+        // add last part of the header
         $this->_addLastPart();
 
     }
@@ -44,6 +49,33 @@ class templateParserHeader implements templateParserHeaderInterface
 
     }
 
+    /**
+     * @param $settingsHeaders
+     */
+    private function _addHeadersFromSettings($settingsHeaders = [])
+    {
+
+        foreach($settingsHeaders as $includeType=>$includeItems)
+        {
+            $addType = "";
+            switch ($includeType)
+            {
+                // include javascript file
+                case "js":
+                    // include all js items
+                    foreach($includeItems as $item) $addType .= "<script src='" . $item . "'></script>" .PHP_EOL;
+                    break;
+                // include stylesheet file
+                case "css":
+                    // include all css items
+                    foreach($includeItems as $item) $addType = "<link href='" . $item . "' rel='stylesheet'/>" .PHP_EOL;
+                    break;
+            }
+            // add items to the headerOutput var
+            $this->_headerOutput .= $addType;
+        }
+
+    }
     /**
      * add last part of the head to $this->_headerOutput;
      */

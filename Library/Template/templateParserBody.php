@@ -10,7 +10,7 @@ namespace one2build\Library\Template;
  */
 interface templateParserBodyInterface
 {
-    public function __construct();
+    public function __construct( $template );
     public function returnBodyHtml();
 }
 
@@ -28,7 +28,7 @@ class templateParserBody implements templateParserBodyInterface
     /**
      * templateParserBody constructor.
      */
-    public function __construct() {
+    public function __construct( $template) {
 
         $this->_addFirstPart();
 
