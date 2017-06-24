@@ -16,4 +16,10 @@
         <description>ne2Build is an easy php framework for everyone, who wants to build nice looking websites.</description>
         <keywords>One2Build, Easy Framework, PHP, jQuery, Open Source</keywords>
     </meta>
+    <router>
+        /                       : home
+        /freelancers            : freelancers
+        /opdrachten             : opdrachten
+        /contact                : contact
+    </router>
 </settings>

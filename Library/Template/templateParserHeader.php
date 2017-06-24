@@ -16,6 +16,7 @@ interface templateParserHeaderInterface
 /**
  * Class templateParserHeader
  * @package one2build\Library\Template
+ * @return string headerOutput
  */
 class templateParserHeader implements templateParserHeaderInterface
 {
@@ -94,7 +95,7 @@ class templateParserHeader implements templateParserHeaderInterface
 
         }
         $addType .= "</head>" .PHP_EOL;
-        
+
         return $addType;
 
     }

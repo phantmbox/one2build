@@ -7,7 +7,8 @@ namespace one2build;
  * Time: 20:05
  */
 
-define("ROOT", __DIR__);
+define("ROOT"    , __DIR__);
+define("WORKDIR" , $_SERVER['REQUEST_URI'] );
 
 include "one2build.php";
 

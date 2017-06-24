@@ -2,12 +2,14 @@
 namespace one2build;
 
 // include necessary classes - will be autoload soon
+require_once(ROOT . "/Library/router.php");
 require_once(ROOT . "/Library/Settings/getSettings.php");
 require_once(ROOT . "/Library/Settings/checkSettings.php");
 require_once(ROOT . "/Library/Template/templateLoader.php");
 require_once(ROOT . "/Library/Template/templateParser.php");
 
 
+use one2build\Library\router                    as router;
 use one2build\Library\Settings\getSettings      as getSettings;
 use one2build\Library\Settings\checkSettings    as checkSettings;
 use one2build\Library\Template\templateLoader   as templateLoader;
@@ -42,14 +44,16 @@ class one2build implements one2buildInterface
 {
     protected $_settings        = null;
     protected $_template        = null;
-    protected $_currentPage     = "home";
+    protected $_currentPage     = "";
     protected $_headerOutput    = "";
     protected $_bodyOutput      = "";
 
     /**
      * one2build constructor.
      */
-    public function __construct() { /***/ }
+    public function __construct() { 
+        /***/
+    }
 
     /**
      * buildpage
@@ -66,6 +70,11 @@ class one2build implements one2buildInterface
             $settings =  new getSettings();
             $this->_settings = $settings->loadSettingsFile();
 
+            // get the right page to load with the router class
+            // send setting file to router what will return the current page
+            $router = new router( $this->_settings );
+            $this->_currentPage = $router->getCurrentPage();
+            
             // check for all necessary settings information
             // settings file needs tags ( projectname, theme );
             $checkSettings = new checkSettings( $this->_settings );
