@@ -5,6 +5,7 @@ namespace one2build\Library;
  * User: phantmbox
  * Date: 23-6-2017
  * Time: 9:49
+ * NOT USED @ this moment
  */
 class MyException extends \Exception {
 

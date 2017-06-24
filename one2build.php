@@ -1,6 +1,7 @@
 <?php
 namespace one2build;
 
+// include necessary classes - will be autoload soon
 require_once(ROOT . "/Library/Settings/getSettings.php");
 require_once(ROOT . "/Library/Settings/checkSettings.php");
 require_once(ROOT . "/Library/Template/templateLoader.php");
@@ -15,6 +16,7 @@ use one2build\Library\Template\templateParser   as templateParser;
 
 /**
  * one2build framework
+ * the easy to build website framework
  */
 
 /**
@@ -31,6 +33,10 @@ interface one2buildInterface
  * Class one2build
  * @package one2build
  * @var array $_settings contains array of settings file
+ * @var array $_template contains template structure
+ * @var string $_currentPage contains page name file
+ * @var string $_headerOutput contains html of header
+ * @var string $_bodyOutput contains html of body
  */
 class one2build implements one2buildInterface
 {
@@ -43,15 +49,13 @@ class one2build implements one2buildInterface
     /**
      * one2build constructor.
      */
-    public function __construct()
-    {
-
-    }
+    public function __construct() { /***/ }
 
     /**
      * buildpage
      * load setting file, check settingsfile
      * load template file, parse file to html
+     *
      */
     public function buildPage()
     {
@@ -76,11 +80,11 @@ class one2build implements one2buildInterface
             // parsing the template to html
             $parser = new templateParser( $this->_template );
             
-            echo "OK";
+            echo "OK" . PHP_EOL; // echo OK is there are no errors
 
         } catch (\Exception $e) {
 
-            echo $e->getMessage() . "Terminated!".PHP_EOL;
+            echo $e->getMessage() . "Terminated!" . PHP_EOL; // echo terminated if there is one or more errors
 
         }
         

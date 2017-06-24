@@ -31,10 +31,11 @@ class getSettings implements getSettingsInterface
 {
 
 
-    public function __construct(){ }
+    public function __construct(){ /***/ }
 
     /**
      * @throws \Exception if file cant be loaded
+     * @return array $convertedXml contains array structure of xml file
      */
     public function loadSettingsFile()
     {
@@ -60,8 +61,6 @@ class getSettings implements getSettingsInterface
 
                 }
             }
-
-            //throw new MyException( __METHOD__ . PHP_EOL);
 
         } catch (\Exception $e) {
 
