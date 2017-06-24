@@ -30,22 +30,40 @@ class templateParserHeader implements templateParserHeaderInterface
     public function __construct( $settings = [] ) {
 
         // add first part of the header
-        $this->_addFirstPart();
+        $this->_headerOutput .= $this->_addHeaderStart();
+
+        // add meta tags to the header
+        if ( property_exists( $settings , 'meta'  ) ) $this->_headerOutput .= $this->_addMetaTags( $settings->meta );
 
         // add settings -> defaultHeaderInclude
         if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
 
-        // add last part of the header
-        $this->_addLastPart();
+
 
     }
 
     /**
      *  add first part of the head to $this->_headerOutput;
      */
-    private function _addFirstPart()
+    private function _addHeaderStart()
     {
-        $this->_headerOutput .= "<!DOCTYPE html>\n<html>\n<head>" . PHP_EOL;
+       return "<!DOCTYPE html>\n<html>" . PHP_EOL;
+
+    }
+    /**
+     *  add meta part of the head to $this->_headerOutput;
+     * @param array $metaTags
+     * @return string $addtype ( meta data )
+     */
+    private function _addMetaTags( $metaTags = [] )
+    {
+        $addType = "<!-- meta includes -->" . PHP_EOL;
+        
+        foreach($metaTags as $metaType=>$metaValue) {
+           $addType .= "<meta name='" . $metaType . " content='" . $metaValue . "'>" . PHP_EOL;
+        }
+
+        return $addType;
 
     }
 
@@ -57,7 +75,7 @@ class templateParserHeader implements templateParserHeaderInterface
 
         foreach($settingsHeaders as $includeType=>$includeItems)
         {
-            $addType = "";
+            $addType = "<!-- header includes -->\n<head>" . PHP_EOL;
             switch ($includeType)
             {
                 // include javascript file
@@ -71,17 +89,11 @@ class templateParserHeader implements templateParserHeaderInterface
                     foreach($includeItems as $item) $addType = "<link href='" . $item . "' rel='stylesheet'/>" .PHP_EOL;
                     break;
             }
+            $addType .= "</head>" .PHP_EOL;
             // add items to the headerOutput var
             $this->_headerOutput .= $addType;
         }
 
-    }
-    /**
-     * add last part of the head to $this->_headerOutput;
-     */
-    private function _addLastPart()
-    {
-        $this->_headerOutput .= "</head>" . PHP_EOL;
     }
 
     /**

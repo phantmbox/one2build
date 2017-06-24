@@ -11,4 +11,9 @@
         <css>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css</css>
         <css>/themes/default/layout/css/default.css</css>
     </defaultHeaderInclude>
+    <meta>
+        <title>One2Build - {{url}}</title>
+        <description>ne2Build is an easy php framework for everyone, who wants to build nice looking websites.</description>
+        <keywords>One2Build, Easy Framework, PHP, jQuery, Open Source</keywords>
+    </meta>
 </settings>
