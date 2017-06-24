@@ -10,6 +10,7 @@ use one2build\Library\Xml\xmlFileLoader as xmlFileLoader;
 use one2build\Library\Xml\xmlToArray as xmlToArray;
 
 
+
 /**
  * Interface getSettingsInterface
  * @package one2build\Library
@@ -49,7 +50,7 @@ class getSettings implements getSettingsInterface
                     // initiate xmlToArray
                     $xmlToArray = new xmlToArray($settingFileLoaderResult);
                     // get converted xml and return array
-                    if ( !$convertedXml = $xmlToArray->convert() ) throw new \Exception("error | " . __METHOD__ . PHP_EOL);
+                    if ( !$convertedXml = $xmlToArray->convert() ) throw new \Exception( __METHOD__ . PHP_EOL);
 
                     return $convertedXml;
                             
@@ -60,12 +61,12 @@ class getSettings implements getSettingsInterface
                 }
             }
 
-            throw new \Exception("error | " . __METHOD__ . PHP_EOL);
+            //throw new MyException( __METHOD__ . PHP_EOL);
 
         } catch (\Exception $e) {
 
             echo $e->getMessage();
-            return null;
+
         }
         
     }

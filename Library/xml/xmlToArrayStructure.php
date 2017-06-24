@@ -17,7 +17,7 @@ interface xmlToArrayStructureInterface
  */
 class xmlToArrayStructure implements xmlToArrayStructureInterface
 {
-    private $_xmlData;
+    protected $_xmlData;
     
     public function __construct($xml = null)
     {

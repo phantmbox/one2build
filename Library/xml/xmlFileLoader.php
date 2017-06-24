@@ -27,7 +27,7 @@ class xmlFileLoader implements xmlFileLoaderInterface
 {
 
 
-    private $_xmlFileToLoad;
+    protected $_xmlFileToLoad;
     
     /**
      * xmlFileLoader constructor.
