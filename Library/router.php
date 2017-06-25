@@ -22,37 +22,51 @@ class router implements routerInterface
     protected $settingsFile = [];
     protected $page = "";
 
+    /**
+     * router constructor.
+     * @param array $settingsFile
+     */
     public function __construct( $settingsFile = [] )
     {
-        if ( !isset( $settingsFile ) ) throw new \Exception("no settings file given to router");
 
         $this->settingsFile = $settingsFile;
 
-        if (!$this->page = $this->_findCurrentUrl() ) throw new \Exception("cant route");
-
     }
 
+    /**
+     * @return string
+     */
     private function _findCurrentUrl()
     {
+        $foundUsableUrlPage = "";
+
         if ( property_exists( $this->settingsFile , 'router'  ) )
         {
-            $routerItems = explode("\n", trim( $this->settingsFile->router ) ) ;
-            foreach( $routerItems as $item )
-            {
-                list( $url , $page ) = explode( ":" , $item );
-                $url  = trim( $url );
-                $page = trim( $page );
+
+            $routerItems = json_decode( $this->settingsFile->router , true )  ;
+
+            foreach( explode("/",URLARGUMENTS) as $argument ) {
+
+                foreach ($routerItems as $url => $page) {
+
+                    if ($url == $argument ) $foundUsableUrlPage .= $page;
+
+                }
 
             }
 
-            return "home";
         }
 
-        return false;
+        return $foundUsableUrlPage ? $foundUsableUrlPage : "home";
     }
 
+    /**
+     * @return string
+     */
     public function getCurrentPage()
     {
+        $this->page = $this->_findCurrentUrl();
+
         return $this->page;
     }
 }

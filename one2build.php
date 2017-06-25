@@ -42,6 +42,7 @@ interface one2buildInterface
  */
 class one2build implements one2buildInterface
 {
+
     protected $_settings        = null;
     protected $_template        = null;
     protected $_currentPage     = "";
@@ -53,6 +54,7 @@ class one2build implements one2buildInterface
      */
     public function __construct() { 
         /***/
+
     }
 
     /**
@@ -74,7 +76,7 @@ class one2build implements one2buildInterface
             // send setting file to router what will return the current page
             $router = new router( $this->_settings );
             $this->_currentPage = $router->getCurrentPage();
-            
+                        
             // check for all necessary settings information
             // settings file needs tags ( projectname, theme );
             $checkSettings = new checkSettings( $this->_settings );

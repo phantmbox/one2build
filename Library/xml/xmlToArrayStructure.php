@@ -38,12 +38,14 @@ class xmlToArrayStructure implements xmlToArrayStructureInterface
                 xml_parse_into_struct($tempXml, $this->_xmlData, $structure, $index);
                 xml_parser_free($tempXml);
 
+                if ( !$tempXml ) throw new \Exception ("Cant convert String to Xml " . __METHOD__ );
+
                 return $structure;
 
             } catch (\Exception $e) {
 
-                throw new \Exception ("Error converting xml into structure " .  __METHOD__);
-
+                echo $e->getMessage();
+                
             }
         }  else {
             return null;

@@ -65,14 +65,15 @@ class templateLoader implements templateLoaderInterface
                     // initiate xmlToArrayStructure
                     $xmlToArray = new xmlToArrayStructure($templateFileLoaderResult);
                     // get converted xml and return array structure (open/close/complete tags)
-                    if ( $convertedXml = $xmlToArray->convert() ) return $convertedXml;
-                    // error, no array was created
-                    return null;
+                    if ( !$convertedXml = $xmlToArray->convert() ) throw new \Exception ("No array created " . __METHOD__);
+
+                    // return array
+                    return $convertedXml;
 
                 } catch (\Exception $e) {
 
                     echo $e->getMessage();
-                    return null;
+
                 }
             } else {
                 throw new \Exception("No template file loaded. " . __METHOD__ . PHP_EOL);
@@ -83,7 +84,7 @@ class templateLoader implements templateLoaderInterface
         } catch (\Exception $e) {
 
             echo $e->getMessage();
-            return null;
+
         }
     }
 }

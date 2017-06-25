@@ -1,8 +1,13 @@
 <?php
 /**
- *
+ * 
  */
 namespace one2build\Library\Template;
+
+require_once ( ROOT . "/Library/Template/replaceMetaVars.php");
+
+use one2build\Library\Template\replaceMetaVars as replaceMetaVars;
+
 /**
  * Interface templateParserHeaderInterface
  * @package one2build\Library\Template
@@ -35,7 +40,7 @@ class templateParserHeader implements templateParserHeaderInterface
 
         // add meta tags to the header
         if ( property_exists( $settings , 'meta'  ) ) $this->_headerOutput .= $this->_addMetaTags( $settings->meta );
-
+        $this->_headerOutput .= "<meta name='copyright' content='One2Build Easy WebSite Builder' />" .PHP_EOL;
         // add settings -> defaultHeaderInclude
         if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_headerOutput .= $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
 
@@ -61,13 +66,17 @@ class templateParserHeader implements templateParserHeaderInterface
         $addType = "<!-- meta includes -->" . PHP_EOL;
 
         foreach($metaTags as $metaType=>$metaValue) {
-           $addType .= "<meta name='" . $metaType . " content='" . $metaValue . "'>" . PHP_EOL;
+            
+            $replaceMetaVars = new replaceMetaVars();
+            $metaValue = $replaceMetaVars->replace( $metaValue );
+            $addType .= "<meta name='" . $metaType . "' content='" . $metaValue . "' />" . PHP_EOL;
         }
 
         return $addType;
 
     }
-
+    
+    
     /**
      * @param $settingsHeaders
      * @return string $addType containing head block

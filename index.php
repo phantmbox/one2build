@@ -9,6 +9,7 @@ namespace one2build;
 
 define("ROOT"    , __DIR__);
 define("WORKDIR" , $_SERVER['REQUEST_URI'] );
+define("URLARGUMENTS" ,  $_GET['url'] );
 
 include "one2build.php";
 

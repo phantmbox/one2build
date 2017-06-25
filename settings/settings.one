@@ -12,14 +12,16 @@
         <css>/themes/default/layout/css/default.css</css>
     </defaultHeaderInclude>
     <meta>
-        <title>One2Build - {{url}}</title>
-        <description>ne2Build is an easy php framework for everyone, who wants to build nice looking websites.</description>
+        <title>One2Build {{url}}</title>
+        <description>One2Build is an easy php framework for everyone, who wants to build nice looking websites.</description>
         <keywords>One2Build, Easy Framework, PHP, jQuery, Open Source</keywords>
     </meta>
     <router>
-        /                       : home
-        /freelancers            : freelancers
-        /opdrachten             : opdrachten
-        /contact                : contact
+        {
+            ""              : "home"        ,
+            "freelancers"   : "freelancers" ,
+            "opdrachten"    : "opdrachten"  ,
+            "contact"       : "contact"
+        }
     </router>
 </settings>

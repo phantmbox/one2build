@@ -62,7 +62,8 @@ class xmlFileLoader implements xmlFileLoaderInterface
 
         } catch (\Exception $e) {
 
-            throw new \Exception ("error loading data " . __METHOD__ . PHP_EOL);
+            echo $e->getMessage();
+           
 
         }
 
