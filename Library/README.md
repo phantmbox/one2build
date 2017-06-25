@@ -1,4 +1,4 @@
-Here you can find all the neseccary library file.
+Here you can find all the necessary library file.
 
 Directiry structure
 
