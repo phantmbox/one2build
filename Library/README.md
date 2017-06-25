@@ -1,6 +1,6 @@
 Here you can find all the necessary library file.
 
-Directiry structure
+Directory structure
 
 - Loader
   - fileLoader.php
