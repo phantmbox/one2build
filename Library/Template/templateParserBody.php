@@ -61,7 +61,7 @@ class templateParserBody implements templateParserBodyInterface
             foreach( $this->_template as $key=>$templateItem )
             {
                 $toParse = new parser( $templateItem );
-                $this->_bodyOutput .= $toParse->getParseElements() . PHP_EOL;
+                if ( $toParse->getParseElements() ) $this->_bodyOutput .= $toParse->getParseElements() . PHP_EOL;
             }
         } catch (\Exception $e) {
             

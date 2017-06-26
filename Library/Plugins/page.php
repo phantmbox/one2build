@@ -16,9 +16,9 @@ class page
     }
     public function output() {
         if ($this->type == "open" || $this->type == "complete") {
-            return "<!-- PAGE START -->" .PHP_EOL;
+            return "<!-- PAGE START -->" ;
         }else {
-            return "<!-- PAGE END -->" . PHP_EOL;
+            return "<!-- PAGE END -->" ;
         }
     }
 }

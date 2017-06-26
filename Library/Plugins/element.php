@@ -9,23 +9,27 @@
 class element
 {
     protected $type;
+    protected $attributes;
 
-    public function __construct( $type )
+    public function __construct( $type , $attributes = [] )
     {
         $this->type = $type;
+        
     }
     public function output() {
-
+        $output = "";
         switch ($this->type) {
             case "open":
-                return "<div>";
-
+                $output  .= "<div>";
+                break;
             case "close":
-                return "</div>";
-
+                $output  .= "</div>";
+                break;
             case "complete":
-                return "<div></div>";
-
+                $output  .= "<div></div>";
+                break;
         }
+
+        return $output;
     }
 }
