@@ -16,3 +16,8 @@ Directory structure
 - Xml
   - exception.php (not used yet)
   - router.php
+
+- Plugins
+  - element.php
+  - includeFile.php
+  - page.php

@@ -35,6 +35,7 @@ class xmlToArrayStructure implements xmlToArrayStructureInterface
 
                 $tempXml = xml_parser_create();
                 xml_parser_set_option($tempXml, XML_OPTION_SKIP_WHITE, 1);
+                xml_parser_set_option($tempXml, XML_OPTION_CASE_FOLDING, 0);
                 xml_parse_into_struct($tempXml, $this->_xmlData, $structure, $index);
                 xml_parser_free($tempXml);
 
@@ -44,7 +45,7 @@ class xmlToArrayStructure implements xmlToArrayStructureInterface
 
             } catch (\Exception $e) {
 
-                echo $e->getMessage();
+                echo $e->getMessage() . PHP_EOL;
                 
             }
         }  else {
