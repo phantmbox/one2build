@@ -1,8 +1,12 @@
 <?php
 /**
- *
+ * 
  */
 namespace one2build\Library\Template;
+
+require_once ( ROOT . "/Library/Template/parser.php");
+
+use one2build\Library\Template\parser as parser;
 
 /**
  * Interface templateParserBodyInterface
@@ -24,14 +28,16 @@ class templateParserBody implements templateParserBodyInterface
      * templateBodyHeader constructor.
      */
     private $_bodyOutput;
-
+    private $_template;
     /**
      * templateParserBody constructor.
      */
-    public function __construct( $template) {
+    public function __construct( $template = []) {
 
+        $this->_template = $template;
+        
         $this->_addFirstPart();
-
+        $this->_convertTemplateToHtml();
         $this->_addLastPart();
 
     }
@@ -45,6 +51,24 @@ class templateParserBody implements templateParserBodyInterface
 
     }
 
+    /**
+     *
+     */
+    private function _convertTemplateToHtml()
+    {
+        try 
+        {
+            foreach( $this->_template as $key=>$templateItem )
+            {
+                $toParse = new parser( $templateItem );
+                $this->_bodyOutput .= $toParse->getParseElements() . PHP_EOL;
+            }
+        } catch (\Exception $e) {
+            
+            echo $e->getMessage();
+            
+        }
+    }
     /**
      * add last part of the body to $this->_bodyOutput;
      */
