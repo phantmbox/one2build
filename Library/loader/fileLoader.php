@@ -44,11 +44,12 @@ class fileLoader implements fileLoaderInterface
         try
         {
             // load file and return content
-            if ( $loadedFile = file_get_contents( $this->fileToLoad , FILE_USE_INCLUDE_PATH ) ) return $loadedFile;
+            if ( !$loadedFile = file_get_contents( $this->fileToLoad , FILE_USE_INCLUDE_PATH ) )  throw new \Exception ( "failed to load Xml: " . __METHOD__ . PHP_EOL );
+            return $loadedFile;
 
         } catch (\Exception $e) {
 
-            throw new \Exception ( "failed to load Xml: " . __METHOD__ . PHP_EOL );
+            echo $e->getMessage();
 
         }
 
