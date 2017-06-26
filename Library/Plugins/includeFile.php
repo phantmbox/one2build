@@ -1,5 +1,6 @@
 <?php
-
+require_once ( ROOT . "/Library/Template/attributesToString.php");
+use one2build\Library\Template\attributesToString as attrToStr;
 
 /**
  * Created by PhpStorm.
@@ -31,8 +32,7 @@ class includeFile implements includeFileInterface
     /**
      * includeFile constructor.
      * @param $type
-     * @param null $file
-     * @param array $arg
+     * @param array $attributes
      */
     public function __construct( $type , $attributes = [])
     {
@@ -55,6 +55,10 @@ class includeFile implements includeFileInterface
         }
         return true;
     }
+
+    /**
+     * @return string
+     */
     public function output()
     {
         return "Includes " . $this->attributes['file'];

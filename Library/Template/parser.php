@@ -1,9 +1,11 @@
 <?php
 /**
- * 
+ *
  */
-
 namespace one2build\Library\Template;
+
+require_once ( ROOT . "/Library/Template/attributesToString.php");
+use one2build\Library\Template\attributesToString as attributesToString;
 
 /**
  * Interface parserInterface
@@ -13,6 +15,7 @@ interface parserInterface
 {
     public function __construct( $parseItem );
     public function getParseElements( );
+    
 }
 
 /**
@@ -27,7 +30,7 @@ class parser implements  parserInterface
      * parser constructor.
      * @param $parseItem
      */
-    public function __construct( $parseItem )
+    public function __construct($parseItem)
     {
         $this->parseItem = $parseItem;
 
@@ -39,18 +42,20 @@ class parser implements  parserInterface
      */
     public function getParseElements()
     {
-        try
-        {
+        try {
             // include plugin class
-            require_once ( ROOT . "/Library/Plugins/" . $this->parseItem['tag'] . ".php" );
+            require_once(ROOT . "/Library/Plugins/" . $this->parseItem[ 'tag' ] . ".php");
             // if class name does not exists, throw error
-            if ( !class_exists( $this->parseItem['tag'] ) ) throw new \Exception("Plugin Class <".$this->parseItem['tag']."> does not exists : " . __METHOD__);
-            $plugin = new $this->parseItem['tag']( $this->parseItem['type'] , $this->parseItem['attributes'] );
+            if (!class_exists($this->parseItem[ 'tag' ])) throw new \Exception("Plugin Class <" . $this->parseItem[ 'tag' ] . "> does not exists : " . __METHOD__);
+            $plugin = new $this->parseItem[ 'tag' ]($this->parseItem[ 'type' ], $this->parseItem[ 'attributes' ]);
             return $plugin->output();
 
         } catch (\Exception $e) {
             echo $e->getMessage() . PHP_EOL;
+            return false;
         }
+
     }
-    
+
+
 }
