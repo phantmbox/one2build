@@ -1,4 +1,7 @@
 <page>
     <element class='staticHeaderBlock'>
+        <html>
+            Hallo
+        </html>
     </element>
 </page>

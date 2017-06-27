@@ -1,0 +1,9 @@
+.slideIn {
+    -webkit-transition-duration: 1s; /* Safari */
+    transition-duration: 1s;
+    -webkit-transition-timing-function: linear; /* Safari and Chrome */
+    transition-timing-function: linear;
+}
+.slideInFromRight {
+    transform: translate(100%,0);
+}

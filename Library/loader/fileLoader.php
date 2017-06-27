@@ -36,8 +36,8 @@ class fileLoader implements fileLoaderInterface
     }
 
     /**
-     * @return bool
-     * @throws \Exception
+     * @return string $loadedFile containing file content
+     * @throws \Exception if file cant be loaded
      */
     public function loadFile()
     {

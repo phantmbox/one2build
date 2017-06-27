@@ -12,18 +12,21 @@ class element
 {
     protected $type;
     protected $attributes;
+    protected $content;
 
     /**
      * element constructor.
-     * @param $type
+     * @param string $type
      * @param array $attributes
+     * @param string $content
      */
-    public function __construct( $type , $attributes = [] )
+    public function __construct( $type , $attributes = [] , $content = "" )
     {
 
         $this->type = $type;
         $this->attributes = $attributes;
-        
+        $this->content = $content;
+
     }
 
     /**
@@ -36,6 +39,7 @@ class element
                 $output .= "<div ";
                 $output .= new attrToStr( $this->attributes );
                 $output .= ">";
+                $output .= $this->content;
                 break;
             case "close":
                 $output  .= "</div>";
@@ -43,7 +47,7 @@ class element
             case "complete":
                 $output  .= "<div ";
                 $output .= new attrToStr( $this->attributes );
-                $output .= "></div>";
+                $output .= ">". $this->content . "</div>";
                 break;
         }
 

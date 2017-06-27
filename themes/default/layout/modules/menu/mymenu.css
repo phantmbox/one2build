@@ -1,0 +1,55 @@
+#mymenu {
+    list-style: none;
+    margin:0px;
+    padding-top:4px;
+    height:100%;
+    box-sizing: border-box;
+}
+#mymenu li {
+    float: left;
+    margin:0px 5px;
+    /* padding:10px 0px; */
+    border-bottom:4px solid #f0f0f0;
+    position: relative;
+}
+#mymenu li:hover {
+    border-bottom:4px solid #09f;
+}
+#mymenu ul {
+    list-style: none;
+    position: absolute;
+    margin:0px;padding:0px;
+    left: -9999px; /* Hide off-screen when not needed (this is more accessible than display: none;) */
+}
+#mymenu ul li {
+
+    float: none;
+}
+
+#mymenu ul div {
+    white-space: nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+}
+#mymenu li:hover ul { /* Display the dropdown on hover */
+    left: 0; /* Bring back on-screen when needed */
+}
+#mymenu li:hover div { /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
+
+    text-decoration: none;
+}
+#mymenu li:hover ul div { /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+    text-decoration: none;
+}
+#mymenu li:hover ul li a:hover { /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+
+}
+#mymenu div {
+    display: block;
+    color: #888;
+    font-family:roboto;
+    text-decoration: none;
+}
+#mymenu div:hover {
+    color: #09f;
+    cursor:pointer;
+    text-decoration: none;
+}

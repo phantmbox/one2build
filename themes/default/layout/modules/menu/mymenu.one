@@ -1,0 +1,8 @@
+<menu >
+    <group id='mymenu' class='centerBlock'>
+        <item class='centerBlock' text='Home' url='' />
+        <item class='centerBlock' text='Opdrachten' url='opdrachten' />
+        <item class='centerBlock' text='Freelancers' url='freelancers' />
+        <item class='centerBlock' text='Contact' url='contact' />
+    </group>
+</menu>

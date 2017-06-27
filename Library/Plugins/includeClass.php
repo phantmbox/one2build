@@ -1,6 +1,4 @@
 <?php
-require_once ( ROOT . "/Library/Template/attributesToString.php");
-use one2build\Library\Template\attributesToString as attrToStr;
 
 /**
  * Created by PhpStorm.
@@ -13,7 +11,7 @@ use one2build\Library\Template\attributesToString as attrToStr;
  * Interface includeFileInterface
  * @package one2build\Libraray\Plugins
  */
-interface includeFileInterface
+interface includeClassInterface
 {
     public function __construct( $type , $arg);
     public function output();
@@ -23,14 +21,9 @@ interface includeFileInterface
  * Class includeFile
  * @package one2build\Libraray\Plugins
  */
-class includeFile implements includeFileInterface
+class includeClass implements includeClassInterface
 {
-    protected $type;
-    protected $file;
-    protected $attributes;
-    protected $include = "";
-    protected $themeIncludePath;
-    /**
+     /**
      * includeFile constructor.
      * @param $type
      * @param array $attributes
@@ -48,13 +41,11 @@ class includeFile implements includeFileInterface
     public function check()
     {
         try{
-            $this->themeIncludePath = ROOT . one2build\one2build::$currentThemeDirectory .  $this->attributes['file'];
-
-            ob_start();
-            include( $this->themeIncludePath );
-            $output = ob_get_clean();
-            return $output;
-
+            $themeIncludePath = ROOT .  one2build\one2build::$currentThemeDirectory .  $this->attributes['file'];
+            //echo $themeIncludePath;
+            
+            if ( !$fileContent = file_get_contents( $themeIncludePath , FILE_USE_INCLUDE_PATH ) ) throw new \Exception("Cant load plugin include content : " . __METHOD__);
+            return $fileContent;
         } catch (\Exception $e) {
             echo $e->getMessage();
         }

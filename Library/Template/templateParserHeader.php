@@ -5,8 +5,10 @@
 namespace one2build\Library\Template;
 
 require_once ( ROOT . "/Library/Template/replaceMetaVars.php");
+require_once ( ROOT . "/Library/Loader/dir2array.php");
 
 use one2build\Library\Template\replaceMetaVars as replaceMetaVars;
+use one2build\Library\Loader\dir2array as dir2array;
 
 /**
  * Interface templateParserHeaderInterface
@@ -38,9 +40,13 @@ class templateParserHeader implements templateParserHeaderInterface
         // add first part of the header
         $this->_headerOutput .= $this->_addHeaderStart();
 
+        // add headersFrom default directory
+       // $this->_headerOutput .= $this->_addHeadersFromDefaultDirectory();
+
         // add meta tags to the header
         if ( property_exists( $settings , 'meta'  ) ) $this->_headerOutput .= $this->_addMetaTags( $settings->meta );
         $this->_headerOutput .= "<meta name='copyright' content='One2Build Easy WebSite Builder' />" .PHP_EOL;
+
         // add settings -> defaultHeaderInclude
         if ( property_exists( $settings , 'defaultHeaderInclude'  ) ) $this->_headerOutput .= $this->_addHeadersFromSettings( $settings->defaultHeaderInclude );
 
@@ -75,16 +81,29 @@ class templateParserHeader implements templateParserHeaderInterface
         return $addType;
 
     }
-    
-    
+
+    /**
+     * include all files in directory /Library/IncludeByDefault
+     */
+    private function _addHeadersFromDefaultDirectory()
+    {
+        try 
+        {
+            if ( !$readDir = new dir2array("/Library/IncludeByDefault/") ) throw new \Exception("Error reading dir.");
+            return  $readDir->getFiles();
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        return false;
+    }
     /**
      * @param $settingsHeaders
      * @return string $addType containing head block
      */
     private function _addHeadersFromSettings($settingsHeaders = [])
     {
-        $addType = "<!-- header includes -->\n<head>" . PHP_EOL;
-
+        $addType = "";
+        // include all files from settings
         foreach($settingsHeaders as $includeType=>$includeItems)
         {
 

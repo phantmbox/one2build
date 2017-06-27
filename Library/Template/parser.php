@@ -47,7 +47,7 @@ class parser implements  parserInterface
             require_once(ROOT . "/Library/Plugins/" . $this->parseItem[ 'tag' ] . ".php");
             // if class name does not exists, throw error
             if (!class_exists($this->parseItem[ 'tag' ])) throw new \Exception("Plugin Class <" . $this->parseItem[ 'tag' ] . "> does not exists : " . __METHOD__);
-            $plugin = new $this->parseItem[ 'tag' ]($this->parseItem[ 'type' ], $this->parseItem[ 'attributes' ]);
+            $plugin = new $this->parseItem[ 'tag' ]($this->parseItem[ 'type' ], $this->parseItem[ 'attributes' ] , $this->parseItem['value'] );
             return $plugin->output();
 
         } catch (\Exception $e) {

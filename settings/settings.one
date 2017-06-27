@@ -7,12 +7,17 @@
     </theme>
     <defaultHeaderInclude>
         <js>https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js</js>
-        <js>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js></js>
+        <js>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js</js>
+        <js>/one2build/one2build/themes/default/layout/modules/menu/defaultMenuJs.js</js>
+        <js>/one2build/one2build/themes/default/layout/js/functions.js</js>
         <css>https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css</css>
-        <css>/themes/default/layout/css/default.css</css>
+        <css>/one2build/one2build/themes/default/layout/css/default.css</css>
+        <css>/one2build/one2build/themes/default/layout/modules/menu/mymenu.css</css>
+        <css>/one2build/one2build/Library/IncludeByDefault/slideIn.css</css>
+
     </defaultHeaderInclude>
     <meta>
-        <title>One2Build {{url}}</title>
+        <title>Freecer - One2Build {{url}}</title>
         <description>One2Build is an easy php framework for everyone, who wants to build nice looking websites.</description>
         <keywords>One2Build, Easy Framework, PHP, jQuery, Open Source</keywords>
     </meta>

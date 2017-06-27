@@ -48,6 +48,7 @@ class one2build implements one2buildInterface
     protected $_currentPage     = "";
     protected $_headerOutput    = "";
     protected $_bodyOutput      = "";
+    public static $currentThemeDirectory;
 
     /**
      * one2build constructor.
@@ -71,12 +72,12 @@ class one2build implements one2buildInterface
             // load settings file ( /settings/settings.one )
             $settings =  new getSettings();
             $this->_settings = $settings->loadSettingsFile();
-
+            
             // get the right page to load with the router class
             // send setting file to router what will return the current page
             $router = new router( $this->_settings );
             $this->_currentPage = $router->getCurrentPage();
-                        
+
             // check for all necessary settings information
             // settings file needs tags ( projectname, theme );
             $checkSettings = new checkSettings( $this->_settings );
@@ -84,6 +85,8 @@ class one2build implements one2buildInterface
 
             // loading currentPage template (/themes/<theme>/layout/<page>.one)
             $currentTheme = $this->_settings;
+            self::$currentThemeDirectory = "/themes/" . trim($currentTheme->theme) . "/layout/";
+
             $templateLoader =  new templateLoader();
             $templateLoader->setTemplateUrl( "/themes/" . trim($currentTheme->theme) . "/layout/" . $this->_currentPage . ".one" );
             $this->_template = $templateLoader->loadTemplateFile();

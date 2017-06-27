@@ -1,5 +1,10 @@
-body,html { margin:0 }
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
+body,html { margin:0 ; background:#fff }
+
+/*
+///////// header attributes //////////////////////////////////
+*/
 .staticHeaderBlock {
     position:fixed;
     top:0;
@@ -7,19 +12,74 @@ body,html { margin:0 }
     right:0;
     background:#fff;
 }
+.headerTopBlock {
+    position:relative;overflow:hidden;background:#09f;
+}
+.headerBottomBlock {
+    position:relative;overflow:hidden;background:#fafafa;
+}
+.menu { float:right }
 
+.floatLeft { justify-content: flex-start }
+.floatRight { justify-content: flex-end }
+
+.centerBlock {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row;
+    align-content: stretch;
+    height:100%;
+    box-sizing: border-box;
+}
+/*
+///////// default css attributes //////////////////////////////////
+*/
+.font_roboto { font-family:'Roboto Condensed' }
+.font_size16 { font-size:16pt }
+.font_size18 { font-size:18pt }
+.font_size22 { font-size:22pt }
+.color_white { color: #fff }
+
+.box1200px { position: relative; max-width: 1200px; padding-left:15px; padding-right:15px; margin:auto auto }
+
+.centerVertical {  }
+/*
+///////// responsive attributes //////////////////////////////////
+*/
 @media screen and (max-width: 479px ) {
     .staticHeaderBlock { height: 80px }
+    .headerTopBlock { height: 35px }
+    .headerBottomBlock { height: 45px }
+    .mobile { display: block }
+    .tablet,.desktop { display: none }
+
 }
 @media screen and (min-width: 480px ) {
     .staticHeaderBlock { height: 100px }
+    .headerTopBlock { height: 45px }
+    .headerBottomBlock { height: 55px }
+    .tablet { display: block }
+    .mobile,.desktop { display: none }
 }
 @media screen and (min-width: 680px ) {
     .staticHeaderBlock { height: 110px }
+    .headerTopBlock { height: 50px }
+    .headerBottomBlock { height: 60px }
+    .tablet { display: block }
+    .mobile,.desktop { display: none }
 }
 @media screen and (min-width: 960px ) {
     .staticHeaderBlock { height: 120px }
+    .headerTopBlock { height: 55px }
+    .headerBottomBlock { height: 65px }
+    .desktop { display: block }
+    .mobile,.tablet { display: none }
 }
 @media screen and (min-width: 1200px ) {
     .staticHeaderBlock { height: 130px }
+    .headerTopBlock { height: 60px }
+    .headerBottomBlock { height: 70px }
+    .desktop { display: block }
+    .mobile,.tablet { display: none }
 }
